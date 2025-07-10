@@ -1,5 +1,8 @@
 <?php
-session_start();
+// session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +28,7 @@ session_start();
             <div class="form-group">
                 <label for="role">Role</label>
                 <select class="form-control" id="role" name="role" required>
-                    <option value="admininistrateur" <?= isset($utilisateur) && $utilisateur['role'] == 'admin' ? 'selected' : '' ?>>Admin</option>
+                    <option value="admin" <?= isset($utilisateur) && $utilisateur['role'] == 'admin' ? 'selected' : '' ?>>Administrateur</option>
                     <option value="editeur" <?= isset($utilisateur) && $utilisateur['role'] == 'editeur' ? 'selected' : '' ?>>Éditeur</option>
                 </select>
             </div>
