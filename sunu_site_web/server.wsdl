@@ -2,13 +2,13 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:xs="http://www.w3.org/2001/XMLSchema"
-             xmlns:tns="http://localhost/sunu_site/soap_server.php"
+             xmlns:tns="http://localhost/sunu_site/sunu_site_web/soap_server.php"
              name="UserService"
-             targetNamespace="http://localhost/sunu_site/soap_server.php">
+             targetNamespace="http://localhost/sunu_site/sunu_site_web/soap_server.php">
 
     <!-- Types: complex types for the input and output messages -->
     <types>
-        <xs:schema targetNamespace="http://localhost/sunu_site/soap_server.php">
+        <xs:schema targetNamespace="http://localhost/sunu_site/sunu_site_weba/soap_server.php">
             <xs:element name="listUsersRequest">
                 <xs:complexType>
                     <xs:sequence>
@@ -175,7 +175,7 @@
     <binding name="UserServiceBinding" type="tns:UserServicePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="listUsers">
-            <soap:operation soapAction="http://localhost/sunu_site/soap_server.php#listUsers"/>
+            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#listUsers"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -184,7 +184,7 @@
             </output>
         </operation>
         <operation name="addUser">
-            <soap:operation soapAction="http://localhost/sunu_site/soap_server.php#addUser"/>
+            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#addUser"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -193,7 +193,7 @@
             </output>
         </operation>
         <operation name="deleteUser">
-            <soap:operation soapAction="http://localhost/sunu_site/soap_server.php#deleteUser"/>
+            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#deleteUser"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -202,7 +202,7 @@
             </output>
         </operation>
         <operation name="updateUser">
-            <soap:operation soapAction="http://localhost/sunu_site/soap_server.php#updateUser"/>
+            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#updateUser"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -211,7 +211,7 @@
             </output>
         </operation>
         <operation name="authenticateUser">
-            <soap:operation soapAction="http://localhost/sunu_site/soap_server.php#authenticateUser"/>
+            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#authenticateUser"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -224,7 +224,7 @@
     <!-- Service: defines the service and its ports -->
     <service name="UserService">
         <port name="UserServicePort" binding="tns:UserServiceBinding">
-            <soap:address location="http://localhost/sunu_site/soap_server.php"/>
+            <soap:address location="http://localhost/sunu_site/sunu_site_web/soap_server.php"/>
         </port>
     </service>
 </definitions>

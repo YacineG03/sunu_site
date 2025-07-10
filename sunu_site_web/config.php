@@ -1,4 +1,4 @@
  
 <?php
-define('BASE_URL', '/sunu_site');
+define('BASE_URL', '/sunu_site/sunu_site_web');
 ?>
