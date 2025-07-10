@@ -116,9 +116,9 @@ switch ($action) {
         } else {
             echo "erreur : id non défini";
         }
-    case 'generatetoken':
+    case 'generatejeton':
         if (!empty($_GET['id'])) {
-            $userControleur->generateToken($_GET['id']);
+            $userControleur->generatejeton($_GET['id']);
         } else {
             echo "erreur : id non défini";
         }

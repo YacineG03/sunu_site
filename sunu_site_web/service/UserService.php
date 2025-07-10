@@ -1,45 +1,45 @@
  
 <?php
 require_once dirname(__DIR__) . '\modele\dao\UtilisateurDao.php';
-require_once dirname(__DIR__) . '\modele\dao\TokenDao.php';
+require_once dirname(__DIR__) . '\modele\dao\jetonDao.php';
 
 class UserService
 {
     private $utilisateurDao;
-    private $tokenDao;
+    private $jetonDao;
 
     public function __construct()
     {
         $this->utilisateurDao = new UtilisateurDao();
-        $this->tokenDao = new TokenDao();
+        $this->jetonDao = new jetonDao();
     }
 
-    // Service pour récupérer la liste des utilisateurs en vérifiant le token
-    public function listUsers($token)
+    // Service pour récupérer la liste des utilisateurs en vérifiant le jeton
+    public function listUsers($jeton)
     {
-        $this->authenticate($token);
+        $this->authenticate($jeton);
         $users = $this->utilisateurDao->getAllUtilisateurs();
         return $users;
     }
 
-    // Service pour ajouter un utilisateur en vérifiant le token
-    public function addUser($token, $login, $mot_de_passe, $role)
+    // Service pour ajouter un utilisateur en vérifiant le jeton
+    public function addUser($jeton, $login, $mot_de_passe, $role)
     {
-        $this->authenticate($token);
+        $this->authenticate($jeton);
         return $this->utilisateurDao->createUtilisateur($login, $mot_de_passe, $role);
     }
 
-    // Service pour supprimer un utilisateur en vérifiant le token
-    public function deleteUser($token, $id)
+    // Service pour supprimer un utilisateur en vérifiant le jeton
+    public function deleteUser($jeton, $id)
     {
-        $this->authenticate($token);
+        $this->authenticate($jeton);
         return $this->utilisateurDao->deleteUtilisateur($id);
     }
 
-    // Service pour mettre à jour un utilisateur en vérifiant le token
-    public function updateUser($token, $id, $login, $mot_de_passe, $role)
+    // Service pour mettre à jour un utilisateur en vérifiant le jeton
+    public function updateUser($jeton, $id, $login, $mot_de_passe, $role)
     {
-        $this->authenticate($token);
+        $this->authenticate($jeton);
         return $this->utilisateurDao->updateUtilisateur($id, $login, $mot_de_passe, $role);
     }
 
@@ -49,11 +49,11 @@ class UserService
         return $this->utilisateurDao->verifyUser($login, $mot_de_passe);
     }
 
-    // Service pour verifier le token pour un utilisateur pour qu'il accèdé aux ressources protégées
-    private function authenticate($token)
+    // Service pour verifier le jeton pour un utilisateur pour qu'il accèdé aux ressources protégées
+    private function authenticate($jeton)
     {
-        if (!$this->tokenDao->validateToken($token)) {
-            throw new Exception('Token invalide ou expiré');
+        if (!$this->jetonDao->validatejeton($jeton)) {
+            throw new Exception('jeton invalide ou expiré');
         }
     }
 }

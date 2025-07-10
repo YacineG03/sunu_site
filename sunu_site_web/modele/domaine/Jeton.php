@@ -1,15 +1,15 @@
 <?php
-class Token
+class jeton
 {
     private $id;
-    private $token;
+    private $jeton;
     private $dateCreation;
     private $utilisateur_id;
 
-    public function __construct($id, $token, $dateCreation, $utilisateur_id)
+    public function __construct($id, $jeton, $dateCreation, $utilisateur_id)
     {
         $this->id = $id;
-        $this->token = $token;
+        $this->jeton = $jeton;
         $this->dateCreation = $dateCreation;
         $this->utilisateur_id = $utilisateur_id;
     }
@@ -19,9 +19,9 @@ class Token
         return $this->id;
     }
 
-    public function getToken()
+    public function getjeton()
     {
-        return $this->token;
+        return $this->jeton;
     }
 
     public function getDateCreation()

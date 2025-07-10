@@ -1,20 +1,20 @@
  
 <?php
 require_once dirname(__DIR__) . '\modele\dao\UtilisateurDao.php';
-require_once dirname(__DIR__) . '\modele\dao\TokenDao.php';
+require_once dirname(__DIR__) . '\modele\dao\jetonDao.php';
 require_once dirname(__DIR__) . '\modele\dao\CategorieDao.php';
 
 class UtilisateurControleur
 {
     private $utilisateurDao;
     private $categorieDao;
-    private $tokenDao;
+    private $jetonDao;
 
     public function __construct()
     {
         $this->utilisateurDao = new UtilisateurDao();
         $this->categorieDao = new CategorieDao();
-        $this->tokenDao = new TokenDao();
+        $this->jetonDao = new jetonDao();
     }
 
     // Méthode pour afficher la liste des utilisateurs
@@ -84,14 +84,14 @@ class UtilisateurControleur
         header('Location: index.php?action=utilisateurs');
     }
 
-    // Méthode pour générer un token pour un utilisateur 
-    public function generateToken($user_id)
+    // Méthode pour générer un jeton pour un utilisateur 
+    public function generatejeton($user_id)
     {
         if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
             header('Location: index.php?action=connexion&error=Unauthorized');
             exit();
         }
-        $token = $this->tokenDao->createToken($user_id);
+        $jeton = $this->jetonDao->createjeton($user_id);
         header('Location: index.php?action=utilisateurs');
     }
 

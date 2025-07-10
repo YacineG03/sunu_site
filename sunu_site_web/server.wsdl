@@ -12,7 +12,7 @@
             <xs:element name="listUsersRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="jeton" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -42,7 +42,7 @@
             <xs:element name="addUserRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="jeton" type="xs:string"/>
                         <xs:element name="login" type="xs:string"/>
                         <xs:element name="mot_de_passe" type="xs:string"/>
                         <xs:element name="role" type="xs:string"/>
@@ -60,7 +60,7 @@
             <xs:element name="deleteUserRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="jeton" type="xs:string"/>
                         <xs:element name="id" type="xs:int"/>
                     </xs:sequence>
                 </xs:complexType>
@@ -76,7 +76,7 @@
             <xs:element name="updateUserRequest">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="jeton" type="xs:string"/>
                         <xs:element name="id" type="xs:int"/>
                         <xs:element name="login" type="xs:string"/>
                         <xs:element name="mot_de_passe" type="xs:string"/>
@@ -104,7 +104,7 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="status" type="xs:boolean"/>
-                        <xs:element name="token" type="xs:string"/>
+                        <xs:element name="jeton" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>

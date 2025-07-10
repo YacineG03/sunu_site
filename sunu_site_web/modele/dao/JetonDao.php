@@ -1,7 +1,7 @@
  
 <?php
 require_once __DIR__ . '/ConnexionManager.php';
-class TokenDao
+class jetonDao
 {
     private $connexionManager;
 
@@ -11,41 +11,41 @@ class TokenDao
     }
 
     // Méthode pour générer un jeton
-    public function createToken($utilisateur_id)
+    public function createjeton($utilisateur_id)
     {
-        $token = bin2hex(random_bytes(16));
+        $jeton = bin2hex(random_bytes(16));
         $connexion = $this->connexionManager->connect();
-        $stmt = $connexion->prepare('INSERT INTO jeton (token, utilisateur_id) VALUES (:token, :utilisateur_id)');
-        $stmt->execute(['token' => $token, 'utilisateur_id' => $utilisateur_id]);
+        $stmt = $connexion->prepare('INSERT INTO jeton (jeton, utilisateur_id) VALUES (:jeton, :utilisateur_id)');
+        $stmt->execute(['jeton' => $jeton, 'utilisateur_id' => $utilisateur_id]);
         $this->connexionManager->disconnect();
-        return $token;
+        return $jeton;
     }
 
     // Méthode pour récupérer un jeton pour un utilisateur
-    public function getTokenByUserId($utilisateur_id)
+    public function getjetonByUserId($utilisateur_id)
     {
         $connexion = $this->connexionManager->connect();
         $stmt = $connexion->prepare('SELECT * FROM jeton WHERE utilisateur_id = :utilisateur_id');
         $stmt->execute(['utilisateur_id' => $utilisateur_id]);
-        $token = $stmt->fetch(PDO::FETCH_ASSOC);
+        $jeton = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->connexionManager->disconnect();
-        return $token;
+        return $jeton;
     }
 
     // Méthode pour vérifier si un jeton est valide
-    public function validateToken($token)
+    public function validatejeton($jeton)
     {
         $connexion = $this->connexionManager->connect();
-        $stmt = $connexion->prepare('SELECT * FROM jeton WHERE token = :token');
-        $stmt->execute(['token' => $token]);
-        $tokenData = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $connexion->prepare('SELECT * FROM jeton WHERE jeton = :jeton');
+        $stmt->execute(['jeton' => $jeton]);
+        $jetonData = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->connexionManager->disconnect();
 
-        return $tokenData ? true : false;
+        return $jetonData ? true : false;
     }
 
     // Méthode pour supprimer un jeton
-    public function deleteToken($id)
+    public function deletejeton($id)
     {
         $connexion = $this->connexionManager->connect();
         $stmt = $connexion->prepare('DELETE FROM jeton WHERE id = :id');
