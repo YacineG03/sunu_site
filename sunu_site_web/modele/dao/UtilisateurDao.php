@@ -112,8 +112,28 @@ class UtilisateurDao
     public function deleteUtilisateur($id)
     {
         $connexion = $this->connexionManager->connect();
-        $stmt = $connexion->prepare('DELETE FROM utilisateur WHERE id = :id');
-        $stmt->execute(['id' => $id]);
+        
+        try {
+            // Démarrer une transaction pour garantir l'intégrité
+            $connexion->beginTransaction();
+
+            // Supprimer d'abord les jetons liés à cet utilisateur
+            $stmtJeton = $connexion->prepare('DELETE FROM jeton WHERE utilisateur_id = :id');
+            $stmtJeton->execute(['id' => $id]);
+
+            // Puis supprimer l'utilisateur
+            $stmtUtilisateur = $connexion->prepare('DELETE FROM utilisateur WHERE id = :id');
+            $stmtUtilisateur->execute(['id' => $id]);
+
+            // Valider la transaction
+            $connexion->commit();
+        } catch (PDOException $e) {
+            // Annuler en cas d'erreur
+            $connexion->rollBack();
+            throw $e;
+        }
+
         $this->connexionManager->disconnect();
     }
+
 }

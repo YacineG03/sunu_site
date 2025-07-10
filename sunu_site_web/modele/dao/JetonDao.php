@@ -11,18 +11,18 @@ class jetonDao
     }
 
     // Méthode pour générer un jeton
-    public function createjeton($utilisateur_id)
+    public function createJeton($utilisateur_id)
     {
         $jeton = bin2hex(random_bytes(16));
         $connexion = $this->connexionManager->connect();
-        $stmt = $connexion->prepare('INSERT INTO jeton (jeton, utilisateur_id) VALUES (:jeton, :utilisateur_id)');
+        $stmt = $connexion->prepare('INSERT INTO jeton (token, utilisateur_id) VALUES (:jeton, :utilisateur_id)');
         $stmt->execute(['jeton' => $jeton, 'utilisateur_id' => $utilisateur_id]);
         $this->connexionManager->disconnect();
         return $jeton;
     }
 
     // Méthode pour récupérer un jeton pour un utilisateur
-    public function getjetonByUserId($utilisateur_id)
+    public function getJetonByUserId($utilisateur_id)
     {
         $connexion = $this->connexionManager->connect();
         $stmt = $connexion->prepare('SELECT * FROM jeton WHERE utilisateur_id = :utilisateur_id');
@@ -33,10 +33,10 @@ class jetonDao
     }
 
     // Méthode pour vérifier si un jeton est valide
-    public function validatejeton($jeton)
+    public function validateJeton($jeton)
     {
         $connexion = $this->connexionManager->connect();
-        $stmt = $connexion->prepare('SELECT * FROM jeton WHERE jeton = :jeton');
+        $stmt = $connexion->prepare('SELECT * FROM jeton WHERE token = :jeton');
         $stmt->execute(['jeton' => $jeton]);
         $jetonData = $stmt->fetch(PDO::FETCH_ASSOC);
         $this->connexionManager->disconnect();
@@ -45,7 +45,7 @@ class jetonDao
     }
 
     // Méthode pour supprimer un jeton
-    public function deletejeton($id)
+    public function deleteJeton($id)
     {
         $connexion = $this->connexionManager->connect();
         $stmt = $connexion->prepare('DELETE FROM jeton WHERE id = :id');

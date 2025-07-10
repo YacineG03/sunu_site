@@ -52,7 +52,7 @@ class UserService
     // Service pour verifier le jeton pour un utilisateur pour qu'il accèdé aux ressources protégées
     private function authenticate($jeton)
     {
-        if (!$this->jetonDao->validatejeton($jeton)) {
+        if (!$this->jetonDao->validateJeton($jeton)) {
             throw new Exception('jeton invalide ou expiré');
         }
     }

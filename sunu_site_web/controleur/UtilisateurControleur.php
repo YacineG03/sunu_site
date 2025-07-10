@@ -91,7 +91,7 @@ class UtilisateurControleur
             header('Location: index.php?action=connexion&error=Unauthorized');
             exit();
         }
-        $jeton = $this->jetonDao->createjeton($user_id);
+        $jeton = $this->jetonDao->createJeton($user_id);
         header('Location: index.php?action=utilisateurs');
     }
 
