@@ -26,7 +26,7 @@ class ArticleDao
         $stmt = $connexion->prepare('SELECT * FROM article');
         $stmt->execute();
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $nbArticles = (int) $articles['nb_articles'];
+        // $nbArticles = (int) $articles['nb_articles'];
         $this->connexionManager->disconnect();
         return $articles;
     }

@@ -13,3 +13,4 @@ $server->setClass('UserService');
 
 // Démarrer le serveur
 $server->handle();
+?>

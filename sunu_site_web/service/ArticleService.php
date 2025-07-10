@@ -38,6 +38,10 @@ class ArticleService
                 $item->addChild('dateModification', $article['dateModification']);
             }
             return $xml->asXML();
+            // $xmlString = $xml->asXML();
+            // $xmlString = str_replace('<?xml version="1.0"?, '<?xml version="1.0" encoding="UTF-8">', $xmlString);
+            // return $xmlString;
+
         } else {
             throw new InvalidArgumentException('Format de réponse non supporté.');
         }
