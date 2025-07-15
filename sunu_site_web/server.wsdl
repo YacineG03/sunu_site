@@ -6,225 +6,225 @@
              name="UserService"
              targetNamespace="http://localhost/sunu_site/sunu_site_web/soap_server.php">
 
-    <!-- Types: complex types for the input and output messages -->
-    <types>
-        <xs:schema targetNamespace="http://localhost/sunu_site/sunu_site_weba/soap_server.php">
-            <xs:element name="listUsersRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="jeton" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="listUsersResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="users" type="tns:ArrayOfUser"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+        <!-- Types: complex types for the input and output messages -->
+        <types>
+            <xs:schema targetNamespace="http://localhost/sunu_site/sunu_site_web/soap_server.php">
+                <xs:element name="listUsersRequest">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="jeton" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="listUsersResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="users" type="tns:ArrayOfUser"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
 
-            <xs:complexType name="ArrayOfUser">
-                <xs:sequence>
-                    <xs:element name="user" type="tns:User" maxOccurs="unbounded" minOccurs="0"/>
-                </xs:sequence>
-            </xs:complexType>
-
-            <xs:complexType name="User">
-                <xs:sequence>
-                    <xs:element name="id" type="xs:int"/>
-                    <xs:element name="login" type="xs:string"/>
-                    <xs:element name="mot_de_passe" type="xs:string"/>
-                    <xs:element name="role" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-
-            <xs:element name="addUserRequest">
-                <xs:complexType>
+                <xs:complexType name="ArrayOfUser">
                     <xs:sequence>
-                        <xs:element name="jeton" type="xs:string"/>
-                        <xs:element name="login" type="xs:string"/>
-                        <xs:element name="mot_de_passe" type="xs:string"/>
-                        <xs:element name="role" type="xs:string"/>
+                        <xs:element name="user" type="tns:User" maxOccurs="unbounded" minOccurs="0"/>
                     </xs:sequence>
                 </xs:complexType>
-            </xs:element>
-            <xs:element name="addUserResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="status" type="xs:boolean"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
 
-            <xs:element name="deleteUserRequest">
-                <xs:complexType>
+                <xs:complexType name="User">
                     <xs:sequence>
-                        <xs:element name="jeton" type="xs:string"/>
-                        <xs:element name="id" type="xs:int"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="deleteUserResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="status" type="xs:boolean"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-
-            <xs:element name="updateUserRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="jeton" type="xs:string"/>
                         <xs:element name="id" type="xs:int"/>
                         <xs:element name="login" type="xs:string"/>
                         <xs:element name="mot_de_passe" type="xs:string"/>
                         <xs:element name="role" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
-            </xs:element>
-            <xs:element name="updateUserResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="status" type="xs:boolean"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
 
-            <xs:element name="authenticateUserRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="login" type="xs:string"/>
-                        <xs:element name="mot_de_passe" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:element name="authenticateUserResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="status" type="xs:boolean"/>
-                        <xs:element name="jeton" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:schema>
-    </types>
+                <xs:element name="addUserRequest">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="jeton" type="xs:string"/>
+                            <xs:element name="login" type="xs:string"/>
+                            <xs:element name="mot_de_passe" type="xs:string"/>
+                            <xs:element name="role" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="addUserResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="status" type="xs:boolean"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
 
-    <!-- Messages: request and response messages for each operation -->
-    <message name="listUsersRequest">
-        <part name="parameters" element="tns:listUsersRequest"/>
-    </message>
-    <message name="listUsersResponse">
-        <part name="parameters" element="tns:listUsersResponse"/>
-    </message>
+                <xs:element name="deleteUserRequest">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="jeton" type="xs:string"/>
+                            <xs:element name="id" type="xs:int"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="deleteUserResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="status" type="xs:boolean"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
 
-    <message name="addUserRequest">
-        <part name="parameters" element="tns:addUserRequest"/>
-    </message>
-    <message name="addUserResponse">
-        <part name="parameters" element="tns:addUserResponse"/>
-    </message>
+                <xs:element name="updateUserRequest">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="jeton" type="xs:string"/>
+                            <xs:element name="id" type="xs:int"/>
+                            <xs:element name="login" type="xs:string"/>
+                            <xs:element name="mot_de_passe" type="xs:string"/>
+                            <xs:element name="role" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="updateUserResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="status" type="xs:boolean"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
 
-    <message name="deleteUserRequest">
-        <part name="parameters" element="tns:deleteUserRequest"/>
-    </message>
-    <message name="deleteUserResponse">
-        <part name="parameters" element="tns:deleteUserResponse"/>
-    </message>
+                <xs:element name="authenticateUserRequest">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="login" type="xs:string"/>
+                            <xs:element name="mot_de_passe" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="authenticateUserResponse">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="status" type="xs:boolean"/>
+                            <xs:element name="jeton" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:schema>
+        </types>
 
-    <message name="updateUserRequest">
-        <part name="parameters" element="tns:updateUserRequest"/>
-    </message>
-    <message name="updateUserResponse">
-        <part name="parameters" element="tns:updateUserResponse"/>
-    </message>
+        <!-- Messages: request and response messages for each operation -->
+        <message name="listUsersRequest">
+            <part name="parameters" element="tns:listUsersRequest"/>
+        </message>
+        <message name="listUsersResponse">
+            <part name="parameters" element="tns:listUsersResponse"/>
+        </message>
 
-    <message name="authenticateUserRequest">
-        <part name="parameters" element="tns:authenticateUserRequest"/>
-    </message>
-    <message name="authenticateUserResponse">
-        <part name="parameters" element="tns:authenticateUserResponse"/>
-    </message>
+        <message name="addUserRequest">
+            <part name="parameters" element="tns:addUserRequest"/>
+        </message>
+        <message name="addUserResponse">
+            <part name="parameters" element="tns:addUserResponse"/>
+        </message>
 
-    <!-- PortType: defines the operations -->
-    <portType name="UserServicePortType">
-        <operation name="listUsers">
-            <input message="tns:listUsersRequest"/>
-            <output message="tns:listUsersResponse"/>
-        </operation>
-        <operation name="addUser">
-            <input message="tns:addUserRequest"/>
-            <output message="tns:addUserResponse"/>
-        </operation>
-        <operation name="deleteUser">
-            <input message="tns:deleteUserRequest"/>
-            <output message="tns:deleteUserResponse"/>
-        </operation>
-        <operation name="updateUser">
-            <input message="tns:updateUserRequest"/>
-            <output message="tns:updateUserResponse"/>
-        </operation>
-        <operation name="authenticateUser">
-            <input message="tns:authenticateUserRequest"/>
-            <output message="tns:authenticateUserResponse"/>
-        </operation>
-    </portType>
+        <message name="deleteUserRequest">
+            <part name="parameters" element="tns:deleteUserRequest"/>
+        </message>
+        <message name="deleteUserResponse">
+            <part name="parameters" element="tns:deleteUserResponse"/>
+        </message>
 
-    <!-- Binding: SOAP binding for the portType -->
-    <binding name="UserServiceBinding" type="tns:UserServicePortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="listUsers">
-            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#listUsers"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="addUser">
-            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#addUser"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="deleteUser">
-            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#deleteUser"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="updateUser">
-            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#updateUser"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="authenticateUser">
-            <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#authenticateUser"/>
-            <input>
-                <soap:body use="literal"/>
-            </input>
-            <output>
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
+        <message name="updateUserRequest">
+            <part name="parameters" element="tns:updateUserRequest"/>
+        </message>
+        <message name="updateUserResponse">
+            <part name="parameters" element="tns:updateUserResponse"/>
+        </message>
 
-    <!-- Service: defines the service and its ports -->
-    <service name="UserService">
-        <port name="UserServicePort" binding="tns:UserServiceBinding">
-            <soap:address location="http://localhost/sunu_site/sunu_site_web/soap_server.php"/>
-        </port>
-    </service>
-</definitions>
+        <message name="authenticateUserRequest">
+            <part name="parameters" element="tns:authenticateUserRequest"/>
+        </message>
+        <message name="authenticateUserResponse">
+            <part name="parameters" element="tns:authenticateUserResponse"/>
+        </message>
+
+        <!-- PortType: defines the operations -->
+        <portType name="UserServicePortType">
+            <operation name="listUsers">
+                <input message="tns:listUsersRequest"/>
+                <output message="tns:listUsersResponse"/>
+            </operation>
+            <operation name="addUser">
+                <input message="tns:addUserRequest"/>
+                <output message="tns:addUserResponse"/>
+            </operation>
+            <operation name="deleteUser">
+                <input message="tns:deleteUserRequest"/>
+                <output message="tns:deleteUserResponse"/>
+            </operation>
+            <operation name="updateUser">
+                <input message="tns:updateUserRequest"/>
+                <output message="tns:updateUserResponse"/>
+            </operation>
+            <operation name="authenticateUser">
+                <input message="tns:authenticateUserRequest"/>
+                <output message="tns:authenticateUserResponse"/>
+            </operation>
+        </portType>
+
+        <!-- Binding: SOAP binding for the portType -->
+        <binding name="UserServiceBinding" type="tns:UserServicePortType">
+            <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+            <operation name="listUsers">
+                <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#listUsers"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+            <operation name="addUser">
+                <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#addUser"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+            <operation name="deleteUser">
+                <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#deleteUser"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+            <operation name="updateUser">
+                <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#updateUser"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+            <operation name="authenticateUser">
+                <soap:operation soapAction="http://localhost/sunu_site/sunu_site_web/soap_server.php#authenticateUser"/>
+                <input>
+                    <soap:body use="literal"/>
+                </input>
+                <output>
+                    <soap:body use="literal"/>
+                </output>
+            </operation>
+        </binding>
+
+        <!-- Service: defines the service and its ports -->
+        <service name="UserService">
+            <port name="UserServicePort" binding="tns:UserServiceBinding">
+                <soap:address location="http://localhost/sunu_site/sunu_site_web/soap_server.php"/>
+            </port>
+        </service>
+    </definitions>

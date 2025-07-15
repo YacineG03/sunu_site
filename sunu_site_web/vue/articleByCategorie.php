@@ -1,61 +1,119 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Articles - <?= htmlspecialchars($categorie->libelle ?? '') ?></title>
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/entete.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-    <?php require_once 'inc/entete.php'; ?>
-    <div class="container p-5">
-        <h1 class="text-center">Articles de la catégorie <?= $categorie->libelle ?></h1>
-        <!-- Si l'utilisateur est un éditeur ou un administrateur, il peut créer un article -->
-        <?php
-        if (isset($_SESSION['role']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role'] == 'admin')) : ?>
-            <a href="<?= BASE_URL ?>/index.php?action=createArticle" class="btn btn-primary">Créer un article</a>
+
+<?php require_once 'inc/entete.php'; ?>
+
+<div class="main-container">
+
+    <!-- Section principale des articles -->
+    <section class="content-section">
+        <h1 class="page-title">Articles de la catégorie <?= htmlspecialchars($categorie->libelle ?? 'Catégorie inconnue') ?></h1>
+
+        <?php if (isset($_SESSION['role']) && in_array($_SESSION['role'], ['editeur', 'admin'])) : ?>
+            <a href="<?= BASE_URL ?>/index.php?action=createArticle" class="create-btn">
+                <i class="bi bi-plus-circle"></i> Créer un article
+            </a>
         <?php endif; ?>
 
-        <!-- Affichage des articles par categorie -->
-        <?php
-        require_once 'config.php';
-        foreach ($articles as $article) : ?>
-            <div class="card border-dark my-3">
-                <div class="card-body">
-                    <h2 class="card-title"><a href="<?= BASE_URL ?>/index.php?action=article&id=<?= $article['id'] ?>"><?= $article['titre'] ?></a></h2>
-                    <p><?= date("d/m/Y", strtotime($article['dateCreation'])) ?></p>
-                    <p class="card-text"><?= $article['description'] ?></p>
+        <!-- Affichage des articles -->
+        <?php if (!empty($articles)) : ?>
+            <?php foreach ($articles as $article) : ?>
+                <div class="article-card">
+                    <h2 class="article-title">
+                        <a href="<?= BASE_URL ?>/index.php?action=article&id=<?= $article['id'] ?? '' ?>">
+                            <?= htmlspecialchars($article['titre'] ?? 'Titre non disponible') ?>
+                        </a>
+                    </h2>
+                    <div class="article-meta">
+                        <i class="bi bi-calendar"></i>
+                        <?= date("d/m/Y", strtotime($article['dateCreation'] ?? 'now')) ?>
+                    </div>
+                    <p class="article-description"><?= htmlspecialchars($article['description'] ?? 'Description non disponible') ?></p>
 
-                    <!-- Si l'utilisateur est un éditeur ou un administrateur, il peut modifier ou supprimer un article -->
-                    <?php if (isset($_SESSION['role']) && ($_SESSION['role'] == 'editeur' || $_SESSION['role'] == 'admin')) : ?>
-                        <h3>
-                            <a href="<?= BASE_URL ?>/index.php?action=deletearticle&id=<?= $article['id'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"><i class="bi bi-trash"></i></a>
-                            <a href="<?= BASE_URL ?>/index.php?action=editarticle&id=<?= $article['id'] ?>"><i class="bi bi-pencil-square"></i></a>
-                        </h3>
+                    <?php if (isset($_SESSION['role']) && in_array($_SESSION['role'], ['editeur', 'admin'])) : ?>
+                        <div class="article-actions">
+                            <a href="<?= BASE_URL ?>/index.php?action=editarticle&id=<?= $article['id'] ?? '' ?>" class="action-btn edit-btn" title="Modifier">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="<?= BASE_URL ?>/index.php?action=deletearticle&id=<?= $article['id'] ?? '' ?>"
+                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
+                               class="action-btn delete-btn" title="Supprimer">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
                     <?php endif; ?>
                 </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <div class="empty-state">
+                <div class="empty-state-icon">😕</div>
+                Aucun article trouvé dans cette catégorie.
             </div>
-        <?php endforeach ?>
+        <?php endif; ?>
+
         <!-- Pagination -->
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item <?= ($numeroPage == 1) ? "disabled" : "" ?>">
-                    <a href="<?= BASE_URL ?>/index.php?page=<?= $numeroPage - 1 ?>" class="page-link">Précédente</a>
-                </li>
+        <?php if (isset($pages) && $pages > 1) : ?>
+            <div class="pagination">
+                <a href="<?= BASE_URL ?>/index.php?action=categorie&categorie=<?= $categorie->id ?? '' ?>&page=<?= max(1, ($numeroPage ?? 1) - 1) ?>" 
+                   class="page-link <?= (($numeroPage ?? 1) == 1) ? 'disabled' : '' ?>">Précédente</a>
                 <?php for ($page = 1; $page <= $pages; $page++) : ?>
-                    <li class="page-item <?= ($numeroPage == $page) ? "active" : "" ?>">
-                        <a href="<?= BASE_URL ?>/index.php?page=<?= $page ?>" class="page-link"><?= $page ?></a>
+                    <a href="<?= BASE_URL ?>/index.php?action=categorie&categorie=<?= $categorie->id ?? '' ?>&page=<?= $page ?>"
+                       class="page-link <?= (($numeroPage ?? 1) == $page) ? 'active' : '' ?>">
+                        <?= $page ?>
+                    </a>
+                <?php endfor; ?>
+                <a href="<?= BASE_URL ?>/index.php?action=categorie&categorie=<?= $categorie->id ?? '' ?>&page=<?= min($pages, ($numeroPage ?? 1) + 1) ?>" 
+                   class="page-link <?= (($numeroPage ?? 1) == $pages) ? 'disabled' : '' ?>">Suivante</a>
+            </div>
+        <?php endif; ?>
+    </section>
+
+    <!-- Barre latérale des catégories -->
+    <aside class="sidebar">
+        <h2 class="sidebar-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Catégories
+        </h2>
+
+        <ul class="category-list">
+            <li class="category-item">
+                <a href="<?= BASE_URL ?>/index.php" class="category-link <?= !isset($_GET['categorie']) ? 'active' : '' ?>">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Tous
+                </a>
+            </li>
+            <?php if (isset($categories) && is_array($categories)) : ?>
+                <?php foreach ($categories as $cat) : ?>
+                    <li class="category-item">
+                        <a href="<?= BASE_URL ?>/index.php?action=categorie&categorie=<?= urlencode($cat->id ?? '') ?>" 
+                           class="category-link <?= (isset($_GET['categorie']) && $_GET['categorie'] == ($cat->id ?? '')) ? 'active' : '' ?>">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                            <?= htmlspecialchars($cat->libelle ?? 'Catégorie sans nom') ?>
+                        </a>
                     </li>
-                <?php endfor ?>
-                <li class="page-item <?= ($numeroPage == $pages) ? "disabled" : "" ?>">
-                    <a href="<?= BASE_URL ?>/index.php?page=<?= $numeroPage + 1 ?>" class="page-link">Suivante</a>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <li class="category-item">
+                    <p>Aucune catégorie disponible</p>
                 </li>
-            </ul>
-        </nav>
+            <?php endif; ?>
+        </ul>
+    </aside>
+</div>
 
-    </div>
 </body>
-
 </html>

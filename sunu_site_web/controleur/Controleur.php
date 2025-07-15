@@ -1,7 +1,7 @@
 <?php
-require_once dirname(__DIR__) . '\modele\dao\ConnexionManager.php';
-require_once dirname(__DIR__) . '\modele\dao\ArticleDao.php';
-require_once dirname(__DIR__) . '\modele\dao\CategorieDao.php';
+require_once dirname(__DIR__) . '/modele/dao/ConnexionManager.php';
+require_once dirname(__DIR__) . '/modele/dao/ArticleDao.php';
+require_once dirname(__DIR__) . '/modele/dao/CategorieDao.php';
 
 class Controleur
 {
@@ -25,7 +25,7 @@ class Controleur
 
         $articles = $this->articleDao->getArticlesByPage($numeroPage, $nombreArticlesParPage);
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\accueil.php';
+        require_once dirname(__DIR__) . '/vue/accueil.php';
     }
 
     // Méthode pour recuperer les articles pour une catégorie donnée
@@ -39,7 +39,7 @@ class Controleur
     {
         $article = $this->articleDao->getArticleById($id);
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\article.php';
+        require_once dirname(__DIR__) . '/vue/article.php';
     }
 
     // Méthode pour afficher les articles pour une catégorie donnée
@@ -48,7 +48,7 @@ class Controleur
         $categorie = $this->categorieDao->getCategorieById($id);
         $articles = $this->articleDao->getArticlesByCategorie($id);
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\articleByCategorie.php';
+        require_once dirname(__DIR__) . '/vue/articleByCategorie.php';
     }
 
     // Méthode pour afficher le formulaire de création d'article
@@ -59,7 +59,7 @@ class Controleur
             exit();
         }
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\editArticle.php';
+        require_once dirname(__DIR__) . '/vue/editArticle.php';
     }
 
     // Méthode pour afficher le formulaire de modification d'article
@@ -71,7 +71,7 @@ class Controleur
         }
         $article = $this->articleDao->getArticleById($id);
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\editArticle.php';
+        require_once dirname(__DIR__) . '/vue/editArticle.php';
     }
 
     // Méthode pour créer un article

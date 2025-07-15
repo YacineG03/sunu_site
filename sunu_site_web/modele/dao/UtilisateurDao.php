@@ -46,31 +46,27 @@ class UtilisateurDao
 
     // Méthode pour vérifier si un utilisateur existe dans la base de données
     public function verifyUser($login, $mot_de_passe)
-{
-    $connexion = $this->connexionManager->connect();
-    $stmt = $connexion->prepare('SELECT utilisateur.*, jeton.token FROM utilisateur LEFT JOIN jeton ON utilisateur.id = jeton.utilisateur_id WHERE utilisateur.login = :login');
-    $stmt->execute(['login' => $login]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if (!$user) {
-        var_dump('Utilisateur non trouvé');
+    {
+        $connexion = $this->connexionManager->connect();
+        $stmt = $connexion->prepare('SELECT utilisateur.*, jeton.token FROM utilisateur LEFT JOIN jeton ON utilisateur.id = jeton.utilisateur_id WHERE utilisateur.login = :login');
+        $stmt->execute(['login' => $login]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if (!$user) {
+            $this->connexionManager->disconnect();
+            return false;
+        }
+        
+        $isValid = password_verify($mot_de_passe, $user['mot_de_passe']);
+        
         $this->connexionManager->disconnect();
+        
+        if ($isValid) {
+            return $user;
+        }
+        
         return false;
     }
-    
-    var_dump('Hash en DB:', $user['mot_de_passe']);
-    var_dump('Mot de passe passé:', $mot_de_passe);
-    $isValid = password_verify($mot_de_passe, $user['mot_de_passe']);
-    var_dump('Password verify:', $isValid);
-    
-    $this->connexionManager->disconnect();
-    
-    if ($isValid) {
-        return $user;
-    }
-    
-    return false;
-}
     public function createUtilisateur($utilisateur)
     {
         $connexion = $this->connexionManager->connect();

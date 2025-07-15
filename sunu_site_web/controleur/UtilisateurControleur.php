@@ -1,8 +1,8 @@
  
 <?php
-require_once dirname(__DIR__) . '\modele\dao\UtilisateurDao.php';
-require_once dirname(__DIR__) . '\modele\dao\jetonDao.php';
-require_once dirname(__DIR__) . '\modele\dao\CategorieDao.php';
+require_once dirname(__DIR__) . '/modele/dao/UtilisateurDao.php';
+require_once dirname(__DIR__) . '/modele/dao/jetonDao.php';
+require_once dirname(__DIR__) . '/modele/dao/CategorieDao.php';
 
 class UtilisateurControleur
 {
@@ -26,7 +26,7 @@ class UtilisateurControleur
         }
         $categories = $this->categorieDao->getAllCategories();
         $utilisateurs = $this->utilisateurDao->getAllUtilisateurs();
-        require_once dirname(__DIR__) . '\vue\utilisateurs.php';
+        require_once dirname(__DIR__) . '/vue/utilisateurs.php';
     }
 
     // Méthode pour afficher le formulaire de création d'un utilisateur
@@ -37,7 +37,7 @@ class UtilisateurControleur
             exit();
         }
         $categories = $this->categorieDao->getAllCategories();
-        require_once dirname(__DIR__) . '\vue\editUtilisateur.php';
+        require_once dirname(__DIR__) . '/vue/editUtilisateur.php';
     }
 
     // Méthode pour afficher le formulaire de modification d'un utilisateur
@@ -48,7 +48,7 @@ class UtilisateurControleur
             exit();
         }
         $utilisateur = $this->utilisateurDao->getUtilisateurById($id);
-        require_once dirname(__DIR__) . '\vue\editUtilisateur.php';
+        require_once dirname(__DIR__) . '/vue/editUtilisateur.php';
     }
 
     //Méthode pour creer un utilisateur

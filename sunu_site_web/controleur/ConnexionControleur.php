@@ -1,7 +1,7 @@
  
 <?php
-require_once dirname(__DIR__) . '\modele\dao\ConnexionManager.php';
-require_once dirname(__DIR__) . '\modele\dao\UtilisateurDao.php';
+require_once dirname(__DIR__) . '/modele/dao/ConnexionManager.php';
+require_once dirname(__DIR__) . '/modele/dao/UtilisateurDao.php';
 class ConnexionControleur
 {
     private $utilisateurDao;
@@ -14,7 +14,7 @@ class ConnexionControleur
     // Méthode pour afficher la page de connexion
     public function showConnexion()
     {
-        require_once dirname(__DIR__) . '\vue\connexion.php';
+        require_once dirname(__DIR__) . '/vue/connexion.php';
     }
 
     // Méthode pour gérer la connexion
